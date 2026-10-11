@@ -1,22 +1,178 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#07111f" />
-    <meta name="description" content="Personal portfolio of Prateek Mishra, an MBA student specializing in Marketing and Data Analytics, with experience in business development, digital marketing and sales." />
-    <meta property="og:title" content="Prateek Mishra | Marketing & Data Analytics" />
-    <meta property="og:description" content="Marketing, data, and business development — a portfolio by Prateek Mishra." />
-    <meta property="og:type" content="website" />
-    <title>Prateek Mishra | Marketing &amp; Data Analytics</title>
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Prateek Mishra — MBA student focused on Marketing, Data Analytics and Business Development.">
+  <meta property="og:title" content="Prateek Mishra | Marketing & Data Analytics">
+  <meta property="og:description" content="A people-first perspective, paired with an analytical approach to business.">
+  <meta property="og:type" content="website">
+  <title>Prateek Mishra | Marketing &amp; Data Analytics</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2307111f'/%3E%3Ctext x='15' y='46' font-family='Arial,sans-serif' font-size='43' font-weight='700' fill='%2385a2ff'%3EP.%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{color-scheme:dark;--bg:#07111f;--surface:#0c192a;--surface2:#101f33;--text:#edf2ff;--muted:#9eacc3;--line:rgba(179,199,234,.15);--blue:#8ba6ff;--cyan:#78e7f0;--violet:#c1a0ff;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--sans:Inter,"Segoe UI",Arial,sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:#849cff;color:#07111f}.shell{width:min(1160px,calc(100% - 48px));margin-inline:auto}.skip{position:fixed;z-index:99;top:8px;left:8px;padding:10px 14px;border-radius:8px;background:#fff;color:#07111f;transform:translateY(-150%)}.skip:focus{transform:none}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(7,17,31,.88);backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:border-color .2s}.topbar.scrolled{border-color:var(--line)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:inline-flex;align-items:center;gap:12px}.brand-mark{font-size:30px;line-height:1;font-weight:800;letter-spacing:-.1em;color:var(--blue)}.brand-mark span{color:var(--cyan)}.brand-copy{display:grid;line-height:1.35}.brand-copy b{font-size:11px;letter-spacing:.13em}.brand-copy small{font:9px var(--mono);letter-spacing:.1em;color:var(--muted)}.links{display:flex;align-items:center;gap:23px}.links a{font-size:12px;color:#bdc8da;transition:color .2s}.links a:hover,.links a[aria-current=location]{color:var(--cyan)}.links .connect-link{color:var(--text);padding:9px 13px;border:1px solid var(--line);border-radius:8px}.menu{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 11px}
+    .hero{min-height:calc(100svh - 76px);position:relative;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line);background-image:linear-gradient(rgba(130,160,220,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(130,160,220,.035) 1px,transparent 1px);background-size:54px 54px;background-position:center}.hero:before{content:"";position:absolute;width:650px;height:650px;right:0;top:-120px;background:radial-gradient(circle,rgba(70,94,192,.2),transparent 68%);pointer-events:none}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:32px;padding-block:86px;position:relative}.availability,.kicker,.eyebrow,.meta,.hero-caption,.small-label{font:10px var(--mono);letter-spacing:.12em;color:var(--muted)}.availability{display:inline-flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(13,26,45,.62);color:#c8d3e6;font-size:9px}.availability i{font-style:normal;color:#63748f}.pulse{width:7px;height:7px;background:#75e0ae;border-radius:50%;box-shadow:0 0 14px #75e0ae}.kicker{margin:28px 0 8px;color:var(--cyan)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(58px,8.8vw,106px);line-height:.94;letter-spacing:-.075em;margin:0 0 20px;font-weight:650}h1 em{font-style:normal;color:var(--blue)}.period{color:var(--cyan)}.role{display:flex;align-items:center;gap:11px;color:#d3dcf0;font-size:15px}.role-rule{height:1px;width:24px;background:var(--cyan)}.role-separator{color:#687a97}.summary{max-width:570px;margin:24px 0 0;color:#aab8cf;font-size:15px}.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:29px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:8px;padding:12px 16px;font-size:12px;font-weight:650;transition:transform .2s,border-color .2s,background .2s}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(110deg,#9db0ff,#81dce9);color:#07111f}.secondary{border:1px solid var(--line);background:rgba(16,31,51,.66)}.secondary:hover{border-color:rgba(139,166,255,.55)}.meta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:37px;font-size:8px}.meta b{color:var(--cyan);font-weight:500}.meta i{width:3px;height:3px;background:#64758f;border-radius:50%}
+    .visual{position:relative;min-height:490px;display:grid;place-items:center;perspective:900px;isolation:isolate}.visual:before,.visual:after{content:"";position:absolute;border:1px solid rgba(142,168,255,.12);border-radius:50%;width:min(92%,440px);aspect-ratio:1;box-shadow:0 0 80px rgba(74,106,210,.1),inset 0 0 60px rgba(78,105,199,.08)}.visual:after{width:min(70%,335px);border-color:rgba(119,230,241,.15)}.orbit{position:absolute;width:min(98%,470px);aspect-ratio:1;border:1px solid rgba(136,159,236,.25);border-radius:50%;transform:rotateX(68deg) rotateZ(-22deg);animation:orbit 24s linear infinite}.orbit.two{width:min(86%,405px);border-color:rgba(124,226,239,.24);transform:rotateX(68deg) rotateY(58deg) rotateZ(15deg);animation-direction:reverse;animation-duration:30s}.orbit.three{width:min(77%,360px);border-style:dashed;border-color:rgba(193,160,255,.25);transform:rotateX(68deg) rotateY(-58deg) rotateZ(-25deg);animation-duration:36s}.core{position:relative;width:142px;aspect-ratio:1;border-radius:45% 55% 62% 38%/44% 45% 55% 56%;background:radial-gradient(circle at 32% 26%,#e1d8ff 0,#9db0ff 12%,#596ecc 32%,#272c65 55%,rgba(23,34,75,.65) 69%,transparent 72%);box-shadow:0 0 48px rgba(128,151,255,.5),inset -15px -10px 30px rgba(16,21,64,.72);transform-style:preserve-3d;animation:float 6s ease-in-out infinite;z-index:1}.core:before,.core:after{content:"";position:absolute;inset:-15px;border-radius:50%;border:1px solid rgba(125,229,245,.45);transform:rotateY(68deg) rotateX(18deg)}.core:after{inset:-25px;border-color:rgba(190,155,255,.32);transform:rotateX(68deg) rotateY(-25deg)}.node{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--cyan);box-shadow:0 0 18px var(--cyan)}.node.n1{top:19%;left:24%}.node.n2{right:14%;top:40%;background:var(--violet);box-shadow:0 0 18px var(--violet)}.node.n3{bottom:18%;left:37%;width:7px;height:7px}.visual-label{position:absolute;z-index:3;padding:7px 9px;border-radius:7px;border:1px solid var(--line);background:rgba(8,19,34,.8);font:9px var(--mono);letter-spacing:.1em;color:#d3def2}.label-a{top:14%;left:5%}.label-b{top:37%;right:2%}.label-c{bottom:15%;left:14%}.caption{position:absolute;bottom:1%;font:8px var(--mono);letter-spacing:.14em;color:#8494ad}.scroll-cue{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font:9px var(--mono);letter-spacing:.13em;color:#8f9db4}
+    .section{padding:100px 0;border-bottom:1px solid var(--line)}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:43px}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--cyan);font-size:9px}.eyebrow b{font-weight:400;color:#8291a9}.section-heading h2{margin:12px 0 0;font-size:clamp(31px,4.2vw,52px);line-height:1.08;letter-spacing:-.05em}.section-heading h2 em{font-style:normal;color:var(--blue)}.intro{max-width:390px;color:var(--muted);font-size:13px;margin:0}.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px}.quote{padding:28px 30px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,rgba(18,34,58,.78),rgba(10,21,36,.7));position:relative;overflow:hidden}.quote:before{content:"“";position:absolute;right:20px;top:-28px;color:rgba(137,164,255,.13);font:160px Georgia}.quote p{position:relative;max-width:640px;font-size:21px;line-height:1.55;margin:0}.quote strong{color:#c4d0ff}.objective{color:var(--muted);font-size:14px;margin:22px 0}.study-card,.card,.timeline-card,.tag-card{border:1px solid var(--line);border-radius:14px;background:rgba(12,25,42,.75)}.study-card{padding:18px 20px}.study-card small,.study-card b,.study-card span{display:block}.study-card small{font:9px var(--mono);letter-spacing:.1em;color:var(--cyan)}.study-card b{margin-top:7px;font-size:14px}.study-card span{font-size:12px;color:var(--muted)}.focus-grid{display:grid;gap:12px}.focus-card{padding:20px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,rgba(16,31,52,.88),rgba(10,20,35,.8));min-height:140px}.focus-number{font:10px var(--mono);color:var(--cyan)}.focus-card h3{margin:13px 0 5px;font-size:17px}.focus-card p{color:var(--muted);font-size:12px;margin:0}
+    .timeline{display:grid;gap:13px}.timeline-card{display:grid;grid-template-columns:210px 1fr;gap:25px;padding:22px 24px;position:relative;overflow:hidden}.timeline-card.featured{border-color:rgba(133,161,255,.35);background:linear-gradient(115deg,rgba(29,42,77,.7),rgba(12,25,42,.8))}.timeline-card.featured:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--cyan),var(--violet))}.timeline-date{font:10px var(--mono);letter-spacing:.04em;color:var(--cyan)}.timeline-meta{display:block;margin-top:6px;color:var(--muted);font-size:11px}.timeline-card h3{font-size:19px;margin:0 0 3px}.timeline-card h4{font-size:12px;font-weight:500;color:#bcc9df;margin:0 0 11px}.timeline-card ul{margin:0;padding-left:17px;color:var(--muted);font-size:12px}.timeline-card li+li{margin-top:5px}
+    .education-grid,.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.education-card{padding:21px;min-height:160px;position:relative}.education-card .year{position:absolute;right:18px;top:17px;font:10px var(--mono);color:var(--cyan)}.education-card .degree{font:9px var(--mono);letter-spacing:.1em;color:var(--blue)}.education-card h3{font-size:17px;margin:10px 0 5px}.education-card p{color:var(--muted);font-size:12px;margin:0}.education-card small{display:block;margin-top:12px;color:#c6d2e7;font-size:11px}
+    .skills-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.skill-panel{padding:22px}.skill-panel h3{font-size:16px;margin:0 0 16px}.skill-panel h3 span{font:9px var(--mono);color:var(--cyan);margin-right:8px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:7px 10px;border-radius:7px;border:1px solid var(--line);background:rgba(125,151,216,.06);color:#c5d1e5;font-size:11px}
+    .certs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cert{display:flex;align-items:flex-start;gap:13px;padding:15px 17px;border:1px solid var(--line);border-radius:11px;background:rgba(12,25,42,.7)}.cert-mark{flex:0 0 27px;height:27px;border-radius:8px;display:grid;place-items:center;color:var(--cyan);background:rgba(120,231,240,.1);font-size:13px}.cert b{display:block;font-size:12px;line-height:1.45}.cert small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+    .achievement-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.achievement{display:flex;gap:15px;padding:19px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(125deg,rgba(17,31,53,.8),rgba(10,20,35,.7))}.achievement strong{font:11px var(--mono);color:var(--cyan)}.achievement p{margin:0;font-size:13px;color:#d5def0}
+    .beyond-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}.beyond-panel{padding:21px}.beyond-panel h3{font-size:14px;margin:0 0 15px}.simple-list{display:grid;gap:9px;color:var(--muted);font-size:12px}.language{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding-bottom:8px}.language:last-child{border:0;padding:0}.language small{color:#8494ad}.interest{display:flex;gap:10px;align-items:center}.interest mark{display:grid;place-items:center;width:27px;height:27px;border-radius:8px;background:rgba(144,160,255,.11);color:var(--blue);font-size:15px}
+    .contact-section{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 50%,rgba(79,103,195,.16),transparent 43%)}.contact-grid{display:grid;grid-template-columns:1fr .8fr;gap:34px;align-items:center}.contact-lead{max-width:590px;color:var(--muted);font-size:14px}.contact-panel{padding:22px;border:1px solid var(--line);border-radius:15px;background:rgba(12,25,42,.8)}.contact-row{display:flex;align-items:center;gap:13px;padding:11px 0;color:#d6e0f1;font-size:13px}.contact-row+.contact-row{border-top:1px solid var(--line)}.contact-icon{width:31px;height:31px;border-radius:9px;background:rgba(121,231,240,.1);color:var(--cyan);display:grid;place-items:center;font-size:14px}.contact-note{margin:12px 0 0;color:#8797b0;font:9px var(--mono);letter-spacing:.08em}
+    footer{padding:23px 0;color:#8998af;font:9px var(--mono);letter-spacing:.08em}.footer-inner{display:flex;justify-content:space-between;gap:20px}
+    :focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+    @keyframes orbit{to{transform:rotateX(68deg) rotateZ(338deg)}}@keyframes float{0%,100%{transform:translateY(0) rotateY(-8deg) rotateX(5deg)}50%{transform:translateY(-10px) rotateY(8deg) rotateX(-4deg)}}
+    @media(max-width:900px){.links{gap:13px}.links a{font-size:11px}.hero-grid{grid-template-columns:1fr 0.8fr}.visual{min-height:410px}.timeline-card{grid-template-columns:170px 1fr}.skills-layout{grid-template-columns:1fr 1fr}.skills-layout .skill-panel:last-child{grid-column:1/-1}}
+    @media(max-width:700px){.shell{width:min(100% - 34px,560px)}.nav{height:66px}.menu{display:block}.links{display:none;position:absolute;top:65px;left:0;right:0;padding:15px 18px 19px;background:rgba(7,17,31,.98);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.links.open{display:flex}.links a{padding:11px 8px;font-size:13px}.links .connect-link{text-align:center;margin-top:9px}.hero{min-height:auto}.hero-grid{grid-template-columns:1fr;gap:10px;padding:76px 0 60px}.hero-copy{position:relative;z-index:2}.availability{font-size:8px}.kicker{margin-top:24px}h1{font-size:clamp(58px,16vw,83px)}.summary{font-size:14px;max-width:460px}.meta{margin-top:27px}.visual{min-height:330px;margin-top:-12px}.scroll-cue{bottom:13px}.section{padding:73px 0}.section-heading{display:block;margin-bottom:27px}.intro{margin-top:15px}.about-grid,.contact-grid{grid-template-columns:1fr;gap:19px}.quote p{font-size:18px}.focus-grid{grid-template-columns:1fr 1fr}.focus-card{min-height:150px;padding:15px}.timeline-card{grid-template-columns:1fr;gap:9px;padding:19px}.timeline-card h3{font-size:17px}.education-grid,.certs,.achievement-grid{grid-template-columns:1fr}.skills-layout{grid-template-columns:1fr}.skills-layout .skill-panel:last-child{grid-column:auto}.beyond-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;gap:7px}}
+    @media(max-width:390px){.actions{display:grid;grid-template-columns:1fr 1fr}.actions .btn:first-child{grid-column:1/-1}.meta{font-size:7px;gap:8px}.focus-grid{grid-template-columns:1fr}.focus-card{min-height:auto}.visual{min-height:290px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar" id="topbar"><nav class="nav shell" aria-label="Main navigation">
+    <a class="brand" href="#home" aria-label="Prateek Mishra, home"><span class="brand-mark">P<span>.</span></span><span class="brand-copy"><b>PRATEEK MISHRA</b><small>MARKETING × DATA</small></span></a>
+    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation">Menu</button>
+    <div class="links" id="navLinks"><a href="#home">Home</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#skills">Skills</a><a href="#certifications">Certifications</a><a href="#highlights">Highlights</a><a class="connect-link" href="#contact">Let’s connect ↗</a></div>
+  </nav></header>
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-grid shell">
+        <div class="hero-copy">
+          <div class="availability"><span class="pulse"></span> OPEN TO OPPORTUNITIES <i>·</i> BANGALORE, INDIA</div>
+          <p class="kicker">MBA × MARKETING × DATA ANALYTICS</p>
+          <h1>Prateek<br><em>Mishra<span class="period">.</span></em></h1>
+          <div class="role"><span class="role-rule"></span>Marketing &amp; Data Analytics <span class="role-separator">/</span> MBA</div>
+          <p class="summary">MBA student focused on Marketing, Data Analytics and Business Development, bringing together customer understanding, creative thinking and practical analysis.</p>
+          <div class="actions"><a class="btn primary" href="#experience">Explore my work <span aria-hidden="true">↘</span></a><a class="btn secondary" href="#contact">Let’s connect <span aria-hidden="true">↗</span></a></div>
+          <div class="meta"><span><b>01</b> / 08</span><i></i><span>BUSINESS DEVELOPMENT</span><i></i><span>DIGITAL MARKETING</span></div>
+        </div>
+        <div class="visual" role="img" aria-label="Abstract three-dimensional network representing insight, connection and growth">
+          <div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
+          <div class="core"><span class="node n1"></span><span class="node n2"></span><span class="node n3"></span></div>
+          <span class="visual-label label-a">01 · INSIGHT</span><span class="visual-label label-b">02 · CONNECTION</span><span class="visual-label label-c">03 · GROWTH</span>
+          <span class="caption">ANALYTICAL THINKING · HUMAN CONNECTION</span>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#about">SCROLL TO EXPLORE ↓</a>
+    </section>
+    <section class="section" id="about"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>01</b> · A LITTLE ABOUT ME</div><h2>Grounded in people.<br><em>Guided by data.</em></h2></div><p class="intro">A people-first perspective, paired with an analytical approach to the questions that move businesses forward.</p></div>
+      <div class="about-grid"><div><div class="quote"><p>I’m Prateek — an MBA student bringing together <strong>marketing instinct</strong> and <strong>analytical thinking</strong> to understand customers and solve business problems.</p></div><p class="objective">To build a career in Marketing and Data Analytics by leveraging my skills in digital marketing, consumer insights, business development and data-driven decision-making. Seeking opportunities to contribute to organizational growth through strategic marketing, data analysis, customer understanding and effective business solutions.</p><div class="study-card"><small>CURRENTLY STUDYING</small><b>MBA · Marketing &amp; Data Analytics</b><span>ICFAI Business School, Bangalore · IFHE</span></div></div>
+      <div class="focus-grid"><article class="focus-card"><span class="focus-number">01 / FOCUS</span><h3>Marketing</h3><p>Digital marketing, consumer insights, branding and positioning.</p></article><article class="focus-card"><span class="focus-number">02 / FOCUS</span><h3>Data analytics</h3><p>Data-driven decision-making, Excel and Power BI.</p></article><article class="focus-card"><span class="focus-number">03 / FOCUS</span><h3>Business development</h3><p>Lead generation, sales support and client outreach.</p></article></div></div>
+    </div></section>
+    <section class="section" id="experience"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>02</b> · WHERE I’VE CONTRIBUTED</div><h2>Experience in <em>action.</em></h2></div><p class="intro">Learning through customer conversations, practical problem-solving and work that supports business growth.</p></div>
+      <div class="timeline">
+        <article class="timeline-card featured"><div><span class="timeline-date">FEBRUARY 2026 — MAY 2026</span><span class="timeline-meta">12 weeks · Ahmedabad, Gujarat</span></div><div><h3>PHP Infosec Pvt. Ltd.</h3><h4>Business Development Intern</h4><ul><li>Developed marketing strategies for cybersecurity and networking solutions, including PHP Radius and Fusionspot.</li><li>Researched potential clients, generated and qualified leads, and supported business development activities.</li><li>Created social media content, promotional materials, and a long-term content calendar for LinkedIn, Instagram, and Facebook.</li><li>Contributed to product branding and positioning through AI-based messaging, brochures, presentations, and marketing collateral.</li><li>Supported event marketing and client outreach, including industry exhibition promotions and sales materials.</li></ul></div></article>
+        <article class="timeline-card"><div><span class="timeline-date">NOVEMBER 2023 — JANUARY 2024</span></div><div><h3>Decathlon</h3><h4>Part-time Associate</h4><ul><li>Customer sales and billing.</li><li>Inventory management using Excel; prepared lists of remaining products to return to the warehouse.</li><li>Supported a store closing project.</li></ul></div></article>
+        <article class="timeline-card"><div><span class="timeline-date">OCTOBER 2022 — NOVEMBER 2022</span></div><div><h3>NG Constructions</h3><h4>Management Team Assistant</h4><ul><li>Supported management of wages, construction materials, labor, and other site requirements.</li></ul></div></article>
+        <article class="timeline-card"><div><span class="timeline-date">APRIL 2022 — JUNE 2022</span></div><div><h3>Active Kids Retail Pvt. Ltd.</h3><h4>Retail Marketing Team</h4><ul><li>Promoted company products to wholesaler and retailer clients.</li></ul></div></article>
+        <article class="timeline-card"><div><span class="timeline-date">APRIL 2020 — APRIL 2021</span></div><div><h3>Medico Mall</h3><h4>Retail experience</h4><ul><li>Retail sales, billing and transactions, customer service, product inventory, store management, and day-to-day retail operations.</li></ul></div></article>
+      </div>
+    </div></section>
+    <section class="section" id="education"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>03</b> · THE LEARNING PATH</div><h2>Built on <em>curiosity.</em></h2></div><p class="intro">A business education shaped by marketing, analytics and a steady interest in how organizations grow.</p></div>
+      <div class="education-grid">
+        <article class="education-card card"><span class="year">2027</span><span class="degree">MBA</span><h3>Marketing &amp; Data Analytics</h3><p>ICFAI Business School, Bangalore</p><small>IFHE · Currently pursuing</small></article>
+        <article class="education-card card"><span class="year">2023</span><span class="degree">BBA · MARKETING</span><h3>Business Administration</h3><p>BMS College of Commerce and Management, Bangalore</p><small>BCU · 8.31</small></article>
+        <article class="education-card card"><span class="year">2020</span><span class="degree">CLASS XII · COMMERCE</span><h3>Higher Secondary</h3><p>Radiant International School, Patna</p><small>CBSE · 62.33%</small></article>
+        <article class="education-card card"><span class="year">2018</span><span class="degree">CLASS X</span><h3>Secondary School</h3><p>GD Goenka Public School, Patna</p><small>CBSE · 74.83%</small></article>
+      </div>
+    </div></section>
+    <section class="section" id="skills"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>04</b> · TOOLS &amp; APPROACH</div><h2>Skills I bring <em>to the table.</em></h2></div><p class="intro">A mix of practical tools, clear communication and collaborative problem-solving.</p></div>
+      <div class="skills-layout">
+        <article class="skill-panel card"><h3><span>01</span>Technical</h3><div class="chips"><span class="chip">Microsoft Excel</span><span class="chip">Power BI</span><span class="chip">Microsoft Office</span><span class="chip">Google Workspace</span></div></article>
+        <article class="skill-panel card"><h3><span>02</span>People &amp; practice</h3><div class="chips"><span class="chip">Communication &amp; Presentation</span><span class="chip">Strategic Thinking</span><span class="chip">Team Collaboration</span><span class="chip">Leadership</span><span class="chip">Creativity</span></div></article>
+        <article class="skill-panel card"><h3><span>03</span>Strengths</h3><div class="chips"><span class="chip">Analytical &amp; Strategic Thinking</span><span class="chip">Creativity</span><span class="chip">Communication Skills</span><span class="chip">Leadership &amp; Teamwork</span></div></article>
+      </div>
+    </div></section>
+    <section class="section" id="certifications"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>05</b> · CONTINUOUS LEARNING</div><h2>Certifications &amp; <em>courses.</em></h2></div><p class="intro">Building knowledge across analytics, marketing, project management, ESG and finance.</p></div>
+      <div class="certs">
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Data Analytics by Physics Wallah</b><small>2026 · Currently pursuing</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>ESG Certification</b><small>2026</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>SCAL Certification</b><small>2026</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Digital Marketing by Team Lease Edtech</b><small>2022</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Foundations of Project Management by Google Coursera</b><small>2023</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Foundations of Digital Marketing &amp; E-commerce by Google Coursera</b><small>2025</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Foundations: Data, Data, Everywhere by Google Coursera</b><small>2025</small></div></article>
+        <article class="cert"><span class="cert-mark">↗</span><div><b>Bloomberg Finance Fundamentals Course</b><small>2025</small></div></article>
+      </div>
+    </div></section>
+    <section class="section" id="highlights"><div class="shell">
+      <div class="section-heading"><div><div class="eyebrow"><b>06</b> · MOMENTS THAT MATTER</div><h2>Highlights &amp; <em>involvement.</em></h2></div><p class="intro">Celebrating teamwork, initiative and the opportunity to contribute beyond the classroom.</p></div>
+      <div class="achievement-grid">
+        <article class="achievement"><strong>01</strong><p>1st Position in Operation Club Competition</p></article><article class="achievement"><strong>02</strong><p>1st Position in Marketing Club Competition</p></article><article class="achievement"><strong>03</strong><p>2nd Position in Data Analytics Competition</p></article><article class="achievement"><strong>04</strong><p>Runner-up in Volleyball Competition at CBSE Clusters District Level</p></article>
+      </div>
+      <div class="beyond-grid" style="margin-top:14px">
+        <article class="beyond-panel card"><h3>Campus involvement</h3><div class="simple-list"><span>Coordinator for College Fests</span><span>Student Council Member</span><span>Member of Student Council</span><span>Led College Club Activities</span></div></article>
+        <article class="beyond-panel card"><h3>Languages</h3><div class="simple-list"><span class="language"><b>English</b><small>Read · Write · Speak</small></span><span class="language"><b>Hindi</b><small>Read · Write · Speak</small></span><span class="language"><b>Maithili</b><small>Speak</small></span></div></article>
+        <article class="beyond-panel card"><h3>Outside the work</h3><div class="simple-list"><span class="interest"><mark>♞</mark> Chess · A game of considered moves.</span><span class="interest"><mark>▣</mark> Movies · Stories on the big screen.</span><span class="interest"><mark>⌁</mark> Riding · The open road.</span></div></article>
+      </div>
+    </div></section>
+    <section class="section contact-section" id="contact"><div class="shell contact-grid">
+      <div><div class="eyebrow"><b>07</b> · START A CONVERSATION</div><h2 style="font-size:clamp(36px,5vw,60px);line-height:1.08;letter-spacing:-.05em;margin:14px 0 18px">Good ideas start<br><em style="font-style:normal;color:var(--blue)">with a conversation.</em></h2><p class="contact-lead">Interested in marketing, analytics or business development opportunities? I’d be glad to connect and hear what you’re working on.</p><a class="btn primary" href="mailto:prateek.mishra25mb@ibsindia.org">Send me an email ↗</a></div>
+      <div class="contact-panel"><a class="contact-row" href="mailto:prateek.mishra25mb@ibsindia.org"><span class="contact-icon" aria-hidden="true">✉</span><span>prateek.mishra25mb@ibsindia.org</span></a><a class="contact-row" href="tel:9472958062"><span class="contact-icon" aria-hidden="true">⌕</span><span>+91 94729 58062</span></a><p class="contact-note">BANGALORE, INDIA · OPEN TO OPPORTUNITIES</p></div>
+    </div></section>
+  </main>
+  <footer><div class="shell footer-inner"><span>© <span id="year">2026</span> PRATEEK MISHRA</span><span>MARKETING · DATA · BUSINESS DEVELOPMENT</span><a href="#home">BACK TO TOP ↑</a></div></footer>
+  <script>
+    (function(){
+      var menu=document.getElementById('menuButton');
+      var links=document.getElementById('navLinks');
+      var topbar=document.getElementById('topbar');
+      if(menu&&links){
+        menu.addEventListener('click',function(){
+          var open=links.classList.toggle('open');
+          menu.setAttribute('aria-expanded',String(open));
+          menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+          menu.textContent=open?'Close':'Menu';
+        });
+        links.addEventListener('click',function(event){
+          if(event.target.closest('a')){
+            links.classList.remove('open');
+            menu.setAttribute('aria-expanded','false');
+            menu.setAttribute('aria-label','Open navigation');
+            menu.textContent='Menu';
+          }
+        });
+        document.addEventListener('keydown',function(event){
+          if(event.key==='Escape'){
+            links.classList.remove('open');
+            menu.setAttribute('aria-expanded','false');
+            menu.setAttribute('aria-label','Open navigation');
+            menu.textContent='Menu';
+          }
+        });
+      }
+      window.addEventListener('scroll',function(){
+        if(topbar)topbar.classList.toggle('scrolled',window.scrollY>24);
+      },{passive:true});
+      var year=document.getElementById('year');
+      if(year)year.textContent=String(new Date().getFullYear());
+      if('IntersectionObserver' in window){
+        var sections=document.querySelectorAll('main section[id]');
+        var navLinks=document.querySelectorAll('#navLinks a[href^="#"]');
+        var observer=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting){
+              navLinks.forEach(function(link){
+                if(link.getAttribute('href')==='#'+entry.target.id)link.setAttribute('aria-current','location');
+                else link.removeAttribute('aria-current');
+              });
+            }
+          });
+        },{rootMargin:'-25% 0px -65% 0px'});
+        sections.forEach(function(section){observer.observe(section);});
+      }
+    }());
+  </script>
+</body>
 </html>
-

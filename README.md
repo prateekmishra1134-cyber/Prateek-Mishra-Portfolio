@@ -4,7 +4,7 @@ The React portfolio is the published website. It uses Vite, React Three Fiber, T
 
 ## Local development
 
-Install dependencies with pnpm, then run `pnpm dev`. Create the production build with `pnpm build`; `pnpm preview` serves the generated production site.
+Install dependencies with pnpm, then run `pnpm dev`. Vite opens `/app.html`, the clean React source entry. Create a production build with `pnpm build`; `pnpm preview` serves the generated production site.
 
 ## GitHub Pages
 

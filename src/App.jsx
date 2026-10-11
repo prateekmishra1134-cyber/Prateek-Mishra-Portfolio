@@ -1,9 +1,11 @@
 import { Component, lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, ArrowDownRight, ArrowRight, ArrowUpRight, CalendarDays, ChevronDown, Database, Mail, Menu, Network, Phone, Sparkles, Target, X } from 'lucide-react'
+import portraitUrl from '../assets/prateek-mishra.jpeg'
 import { achievements, certifications, education, experience, focusAreas, GITHUB_URL, interests, involvement, languages, LINKEDIN_URL, profile, skills } from './data/portfolio'
 
 const Scene = lazy(() => import('./components/Scene'))
+const Journey = lazy(() => import('./components/Journey'))
 const navItems = [['Home', 'home'], ['About', 'about'], ['Experience', 'experience'], ['Education', 'education'], ['Skills', 'skills'], ['Certifications', 'certifications'], ['Achievements', 'achievements'], ['Contact', 'contact']]
 const focusIcons = [Target, Database, Network]
 
@@ -14,6 +16,12 @@ class SceneBoundary extends Component {
     if (this.state.failed) return <div className="scene-fallback" aria-hidden="true"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>
     return this.props.children
   }
+}
+
+class JourneyBoundary extends Component {
+  state = { failed: false }
+  static getDerivedStateFromError() { return { failed: true } }
+  render() { return this.state.failed ? <div className="journey-fallback" aria-hidden="true" /> : this.props.children }
 }
 
 function Reveal({ children, className = '', delay = 0, as = 'div' }) {
@@ -60,6 +68,7 @@ function Navbar({ active, setActive }) {
 function Hero() {
   const reduce = useReducedMotion()
   const [sceneReady, setSceneReady] = useState(false)
+  const [webglReady, setWebglReady] = useState(false)
   useEffect(() => {
     if (reduce) return undefined
     let idleHandle
@@ -84,8 +93,10 @@ function Hero() {
       </motion.div>
       <motion.div className="hero-meta" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .85 }}><span><b>01</b> / 08</span><i /><span>BUSINESS DEVELOPMENT</span><i /><span>DIGITAL MARKETING</span></motion.div>
     </div>
-    <div className="hero-visual" aria-label="Interactive abstract 3D visualization of connected data and ideas"><div className="hero-visual-orbit hero-visual-orbit-a"/><div className="hero-visual-orbit hero-visual-orbit-b"/><div className="visual-crosshair visual-crosshair-a"/><div className="visual-crosshair visual-crosshair-b"/>
-      {sceneReady ? <SceneBoundary><Suspense fallback={<div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}><Scene /></Suspense></SceneBoundary> : <div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}
+    <div className="hero-visual" aria-label="Interactive portrait scene with a camera orbit and connected 3D forms"><div className="hero-visual-orbit hero-visual-orbit-a"/><div className="hero-visual-orbit hero-visual-orbit-b"/><div className="visual-crosshair visual-crosshair-a"/><div className="visual-crosshair visual-crosshair-b"/>
+      <div className={`portrait-fallback ${webglReady ? "portrait-fallback-hidden" : ""}`}><img src={portraitUrl} alt="Prateek Mishra wearing a dark suit and white shirt" /><span>PRATEEK MISHRA · MARKETING × DATA</span></div>
+      {sceneReady ? <SceneBoundary><Suspense fallback={<div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}><Scene onReady={() => setWebglReady(true)} /></Suspense></SceneBoundary> : <div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}
+      <button className="intro-skip" type="button" onClick={() => window.dispatchEvent(new Event("portfolio:skip-intro"))}>Skip camera intro <ArrowUpRight size={12} /></button>
       <div className="visual-tag visual-tag-top"><span className="tag-dot tag-dot-blue"/> INSIGHT</div><div className="visual-tag visual-tag-right"><span className="tag-dot tag-dot-violet"/> CONNECTION</div><div className="visual-tag visual-tag-bottom"><span className="tag-dot tag-dot-cyan"/> GROWTH</div>
       <div className="visual-caption"><span>ANALYTICAL THINKING</span><i>·</i><span>HUMAN CONNECTION</span></div>
     </div></div>
@@ -113,7 +124,7 @@ function Experience() {
   }, [])
   return <section id="experience" className="section experience section-anchor"><div className="shell"><SectionHeading index="02" eyebrow="WHERE I’VE CONTRIBUTED" title="Experience with" accent="intention." description="From customer-facing retail to business development, each role has added a new perspective on how people and businesses meet." />
     <div className="experience-bar"><span><CalendarDays size={15} /> 2020 — 2026</span><i/><span>BUSINESS DEVELOPMENT · RETAIL · MARKETING</span><span className="experience-count">05 EXPERIENCES</span></div>
-    <div className="timeline">{groups.map((group) => <div className="timeline-year" key={group.year}><div className="timeline-year-mark"><span>{group.year}</span><i/></div><div className="timeline-year-items">{group.entries.map((item) => { const index = item.sourceIndex; const open = expanded === index; return <Reveal key={item.company} className={`experience-card ${item.featured ? 'experience-featured' : ''} ${open ? 'expanded' : ''}`}><article><button className="experience-trigger" onClick={() => setExpanded(open ? -1 : index)} aria-expanded={open} aria-controls={`experience-detail-${index}`}><span className="timeline-index">0{index + 1}</span><span className="experience-company"><b>{item.company}</b><small>{item.title}</small></span><span className="experience-date">{item.dates}</span><span className="experience-meta">{item.meta || 'Professional experience'}</span><span className="experience-chevron"><ChevronDown size={17}/></span></button><AnimatePresence initial={false}>{open && <motion.div id={`experience-detail-${index}`} className="experience-details" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .28 }}><ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></motion.div>}</AnimatePresence></article></Reveal> })}</div></div>)}</div>
+    <div className="timeline">{groups.map((group) => <div className="timeline-year" key={group.year}><div className="timeline-year-mark"><span>{group.year}</span><i/></div><div className="timeline-year-items">{group.entries.map((item) => { const index = item.sourceIndex; const open = expanded === index; return <Reveal key={item.company} className={`experience-card ${item.featured ? 'experience-featured' : ''} ${open ? 'expanded' : ''}`}><article><button className="experience-trigger" onClick={() => { const next = open ? -1 : index; setExpanded(next); window.dispatchEvent(new CustomEvent("portfolio:focus", { detail: { section: "experience", index: next } })) }} aria-expanded={open} aria-controls={`experience-detail-${index}`}><span className="timeline-index">0{index + 1}</span><span className="experience-company"><b>{item.company}</b><small>{item.title}</small></span><span className="experience-date">{item.dates}</span><span className="experience-meta">{item.meta || 'Professional experience'}</span><span className="experience-chevron"><ChevronDown size={17}/></span></button><AnimatePresence initial={false}>{open && <motion.div id={`experience-detail-${index}`} className="experience-details" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: .28 }}><ul>{item.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></motion.div>}</AnimatePresence></article></Reveal> })}</div></div>)}</div>
   </div></section>
 }
 
@@ -126,8 +137,28 @@ function Skills() {
   return <section id="skills" className="section skills section-anchor"><div className="shell"><SectionHeading index="04" eyebrow="WHAT I BRING" title="A toolkit for" accent="the whole picture." description="A mix of tools, ways of working, and strengths shaped through study and experience."/><div className="skills-layout"><Reveal className="skills-orbit-wrap"><div className="skills-ring-label"><span className="ring-pip"/> CAPABILITIES, IN ORBIT</div><div className="orbit-visual" aria-label="Interactive orbit of technical and soft skills"><div className="orbit-track orbit-track-one"/><div className="orbit-track orbit-track-two"/><div className="orbit-track orbit-track-three"/><div className="orbit-core"><span>PM</span><small>TOOLKIT</small></div>{orbitSkills.map((skill, i) => <span key={skill} className={`orbit-chip orbit-chip-${i}`} style={{ '--i': i }}>{skill}</span>)}</div><p className="orbit-hint">Skills shaped through study and experience</p></Reveal><div className="skill-groups"><SkillGroup title="Technical skills" number="01" skillsList={skills.technical}/><SkillGroup title="Soft skills" number="02" skillsList={skills.soft}/><SkillGroup title="Strengths" number="03" skillsList={skills.strengths}/></div></div></div></section>
 }
 
+const skillNotes = {
+  'Microsoft Excel': 'Spreadsheet tool for organizing, calculating, and reviewing data.',
+  'Power BI': 'Business intelligence tool for exploring information and presenting visual reports.',
+  'Microsoft Office': 'Productivity tools listed in the technical skills set.',
+  'Google Workspace': 'Cloud productivity and collaboration tools listed in the technical skills set.',
+  'Communication & Presentation': 'Sharing information and presenting ideas clearly.',
+  'Strategic Thinking': 'Considering options and planning toward goals.',
+  'Team Collaboration': 'Working with others toward shared tasks.',
+  Leadership: 'Guiding and coordinating group effort.',
+  Creativity: 'Generating and developing ideas.',
+  'Analytical & Strategic Thinking': 'Using analysis to consider options and plan toward goals.',
+  'Communication Skills': 'Sharing information clearly with others.',
+  'Leadership & Teamwork': 'Coordinating work and contributing to a group.',
+}
 function SkillGroup({ title, number, skillsList }) {
-  return <Reveal><div className="skill-group"><div className="skill-group-head"><span>{number}</span><h3>{title}</h3><i/></div><div className="skill-tags">{skillsList.map((skill) => <span key={skill}>{skill}</span>)}</div></div></Reveal>
+  const [selected, setSelected] = useState('')
+  const choose = (skill, index) => {
+    const next = selected === skill ? '' : skill
+    setSelected(next)
+    window.dispatchEvent(new CustomEvent('portfolio:focus', { detail: next ? { section: 'skills', index } : { section: 'skills', index: -1 } }))
+  }
+  return <Reveal><div className="skill-group"><div className="skill-group-head"><span>{number}</span><h3>{title}</h3><i/></div><div className="skill-tags">{skillsList.map((skill, index) => <button type="button" key={skill} aria-pressed={selected === skill} onClick={() => choose(skill, index)}>{skill}</button>)}</div>{selected && <p className="skill-note" role="status">{skillNotes[selected]}</p>}</div></Reveal>
 }
 
 function Certifications() {
@@ -191,6 +222,19 @@ function Cursor() {
 
 export default function App() {
   const [active, setActive] = useState('home')
+  const [journeyReady, setJourneyReady] = useState(false)
+  useEffect(() => {
+    document.body.classList.add('react-active')
+    return () => document.body.classList.remove('react-active')
+  }, [])
+  useEffect(() => {
+    let idle
+    let timer
+    const load = () => setJourneyReady(true)
+    if (window.requestIdleCallback) idle = window.requestIdleCallback(load, { timeout: 900 })
+    else timer = window.setTimeout(load, 450)
+    return () => { if (idle && window.cancelIdleCallback) window.cancelIdleCallback(idle); if (timer) window.clearTimeout(timer) }
+  }, [])
   useEffect(() => {
     const sections = navItems.map(([, id]) => document.getElementById(id)).filter(Boolean)
     let frame = 0
@@ -207,6 +251,6 @@ export default function App() {
     window.addEventListener('resize', schedule)
     return () => { cancelAnimationFrame(frame); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule) }
   }, [])
-  return <div className="portfolio"><ScrollProgress/><div className="ambient ambient-left" aria-hidden="true"/><div className="ambient ambient-right" aria-hidden="true"/><Cursor/><Navbar active={active} setActive={setActive}/><main><Hero/><About/><Experience/><Education/><Skills/><Certifications/><Achievements/><Community/><LanguagesInterests/><Contact/></main><Footer/></div>
+  return <div className="portfolio"><ScrollProgress/><div className="ambient ambient-left" aria-hidden="true"/><div className="ambient ambient-right" aria-hidden="true"/>{journeyReady && <JourneyBoundary><Suspense fallback={null}><Journey /></Suspense></JourneyBoundary>}<Cursor/><Navbar active={active} setActive={setActive}/><main><Hero/><About/><Experience/><Education/><Skills/><Certifications/><Achievements/><Community/><LanguagesInterests/><Contact/></main><Footer/></div>
 }
 

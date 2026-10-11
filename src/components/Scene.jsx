@@ -1,33 +1,59 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import * as THREE from 'three'
+import portraitUrl from '../../assets/prateek-mishra.jpeg'
 
 const hubPoints = [[-1.55, .7, -.2], [-1.1, -.92, .32], [-.08, 1.55, -.1], [.96, 1.08, .35], [1.62, .1, -.3], [1.08, -.98, .15], [.05, -1.55, -.18], [-1.38, -.12, .16]]
 
-function Core({ compact, reduceMotion }) {
-  const group = useRef()
-  const scrollDepth = useRef(0)
+function CinematicCamera({ reduceMotion }) {
+  const finished = useRef(false)
+  const { invalidate } = useThree()
   useEffect(() => {
-    const update = () => { scrollDepth.current = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1) }
-    update()
-    window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
+    const skip = () => { finished.current = true }
+    window.addEventListener('portfolio:skip-intro', skip)
+    return () => window.removeEventListener('portfolio:skip-intro', skip)
   }, [])
-  useFrame(({ pointer, clock }) => {
-    if (!group.current || reduceMotion) return
-    group.current.rotation.y += (pointer.x * .23 - group.current.rotation.y) * .025
-    group.current.rotation.x += (-pointer.y * .15 - group.current.rotation.x) * .025
-    group.current.rotation.z += (-pointer.x * .035 - group.current.rotation.z) * .015
-    group.current.position.y = Math.sin(clock.elapsedTime * .48) * .075
-    group.current.position.z = -scrollDepth.current * .38
+  useFrame(({ camera, clock, pointer }) => {
+    const elapsed = clock.elapsedTime
+    const progress = reduceMotion || finished.current ? 1 : Math.min(1, Math.max(0, (elapsed - .25) / 1.65))
+    const eased = progress * progress * (3 - 2 * progress)
+    const angle = (1 - eased) * .34
+    const targetX = Math.sin(angle) * 2.15 + pointer.x * .15
+    const targetY = pointer.y * -.1
+    const targetZ = 5.9 + Math.sin(progress * Math.PI) * .24
+    camera.position.x += (targetX - camera.position.x) * .045
+    camera.position.y += (targetY - camera.position.y) * .045
+    camera.position.z += (targetZ - camera.position.z) * .045
+    camera.lookAt(0, 0, 0)
+    if (progress < 1 || Math.abs(camera.position.x - targetX) > .01 || Math.abs(camera.position.z - targetZ) > .01) invalidate()
   })
+  return null
+}
+
+function PortraitFrame({ compact, onReady }) {
+  const group = useRef()
+  const ready = useRef(false)
+  const texture = useLoader(THREE.TextureLoader, portraitUrl)
+  useEffect(() => {
+    texture.colorSpace = THREE.SRGBColorSpace
+    texture.anisotropy = 4
+    if (!ready.current) { ready.current = true; onReady?.() }
+  }, [texture, onReady])
+  useFrame(({ pointer }) => {
+    if (!group.current) return
+    group.current.rotation.y += (pointer.x * .11 - group.current.rotation.y) * .035
+    group.current.rotation.x += (-pointer.y * .075 - group.current.rotation.x) * .035
+  })
+  const bar = compact ? .075 : .09
   return <group ref={group}>
-    <mesh rotation={[.24, .38, .12]}><icosahedronGeometry args={[.93, compact ? 1 : 2]} /><meshPhysicalMaterial color="#96aaff" emissive="#364ba7" emissiveIntensity={.17} roughness={.12} metalness={.14} clearcoat={1} clearcoatRoughness={.08} transparent opacity={.46} depthWrite={false} /></mesh>
-    <mesh rotation={[-.3, .62, .18]} scale={.72}><icosahedronGeometry args={[.93, 1]} /><meshPhysicalMaterial color="#d3b2ff" emissive="#6537bd" emissiveIntensity={.16} roughness={.14} metalness={.12} clearcoat={1} transparent opacity={.2} depthWrite={false} /></mesh>
-    <mesh scale={.35}><icosahedronGeometry args={[.93, 1]} /><meshPhysicalMaterial color="#91e4f6" emissive="#4c94d8" emissiveIntensity={.26} roughness={.16} metalness={.08} clearcoat={1} transparent opacity={.31} depthWrite={false} /></mesh>
-    <mesh rotation={[1.08, .4, -.12]}><torusGeometry args={[1.32, .012, 8, compact ? 72 : 120]} /><meshBasicMaterial color="#76e8ff" transparent opacity={.78} /></mesh>
-    <mesh rotation={[.22, -.86, .93]}><torusGeometry args={[1.55, .009, 8, compact ? 72 : 120]} /><meshBasicMaterial color="#a782ff" transparent opacity={.62} /></mesh>
-    <mesh rotation={[-.78, .18, .25]}><torusGeometry args={[1.72, .006, 6, compact ? 64 : 108]} /><meshBasicMaterial color="#5c8eff" transparent opacity={.35} /></mesh>
-    {hubPoints.slice(0, compact ? 6 : hubPoints.length).map((position, i) => <group key={i} position={position}><mesh><sphereGeometry args={[i % 3 === 0 ? .052 : .036, 12, 12]} /><meshBasicMaterial color={i % 2 ? '#77eaff' : '#b491ff'} /></mesh><mesh scale={1.7}><sphereGeometry args={[.052, 8, 8]} /><meshBasicMaterial color={i % 2 ? '#77eaff' : '#b491ff'} transparent opacity={.12} /></mesh></group>)}
+    <mesh position={[0, 0, -.16]}><boxGeometry args={[2.52, 3.64, .12]} /><meshPhysicalMaterial color="#7893e8" metalness={.5} roughness={.2} transparent opacity={.27} clearcoat={1} /></mesh>
+    <mesh position={[0, 0, -.04]}><planeGeometry args={[2.22, 3.16]} /><meshBasicMaterial map={texture} toneMapped={false} /></mesh>
+    <mesh position={[0, 0, .015]}><planeGeometry args={[2.36, 3.32]} /><meshPhysicalMaterial color="#9cc5ff" roughness={.1} metalness={.15} transparent opacity={.08} side={THREE.DoubleSide} clearcoat={1} /></mesh>
+    <mesh position={[0, 1.69, .08]}><boxGeometry args={[2.5, bar, .14]} /><meshPhysicalMaterial color="#9bb8ff" emissive="#334a9a" emissiveIntensity={.32} metalness={.58} roughness={.24} clearcoat={1} /></mesh>
+    <mesh position={[0, -1.69, .08]}><boxGeometry args={[2.5, bar, .14]} /><meshPhysicalMaterial color="#7de3ed" emissive="#246179" emissiveIntensity={.2} metalness={.52} roughness={.24} clearcoat={1} /></mesh>
+    <mesh position={[-1.2, 0, .08]}><boxGeometry args={[bar, 3.4, .14]} /><meshPhysicalMaterial color="#8299ee" metalness={.55} roughness={.25} clearcoat={1} /></mesh>
+    <mesh position={[1.2, 0, .08]}><boxGeometry args={[bar, 3.4, .14]} /><meshPhysicalMaterial color="#ae8aff" emissive="#5434a1" emissiveIntensity={.18} metalness={.55} roughness={.25} clearcoat={1} /></mesh>
+    {[[-1.45,1.55,.04],[1.5,.6,-.18],[-1.45,-1.05,.12],[.9,-1.9,-.25]].map(([x,y,z],i)=><mesh key={i} position={[x,y,z]}><sphereGeometry args={[i === 1 ? .055 : .035,12,12]}/><meshBasicMaterial color={i%2?'#83e9f3':'#c5a4ff'}/></mesh>)}
   </group>
 }
 
@@ -64,7 +90,7 @@ function ParticleField({ compact }) {
   return <points ref={field}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#91aaff" size={compact ? .024 : .029} sizeAttenuation transparent opacity={.55} depthWrite={false} /></points>
 }
 
-function SceneContents({ compact, reduceMotion }) {
+function SceneContents({ compact, reduceMotion, onReady }) {
   return <>
     <ambientLight intensity={1.15} />
     <pointLight position={[3.5, 3, 4]} intensity={compact ? 10 : 17} color="#728eff" distance={9} />
@@ -72,7 +98,8 @@ function SceneContents({ compact, reduceMotion }) {
     <pointLight position={[0, 2, -2]} intensity={7} color="#b66cff" distance={7} />
     <ParticleField compact={compact} />
     <NetworkLines compact={compact} />
-    <Core compact={compact} reduceMotion={reduceMotion} />
+    <CinematicCamera reduceMotion={reduceMotion} />
+    <PortraitFrame compact={compact} onReady={onReady} />
   </>
 }
 
@@ -83,7 +110,7 @@ export function hasWebGL() {
   } catch { return false }
 }
 
-export default function Scene({ compact = false }) {
+export default function Scene({ compact = false, onReady }) {
   const [quality, setQuality] = useState({ compact, reduceMotion: false, enabled: true })
   useEffect(() => {
     const small = window.matchMedia('(max-width: 760px)')
@@ -96,6 +123,6 @@ export default function Scene({ compact = false }) {
     return () => { small.removeEventListener?.('change', update); reduced.removeEventListener?.('change', update) }
   }, [compact])
   if (!quality.enabled) return <div className="scene-fallback" aria-hidden="true"><div className="fallback-orbit" /><span>INSIGHT · STRATEGY · GROWTH</span></div>
-  return <div className={`scene-canvas ${quality.compact ? 'scene-compact' : ''}`}><Canvas dpr={quality.compact ? 1 : [1, 1.35]} frameloop={quality.reduceMotion ? 'demand' : 'always'} camera={{ position: [0, 0, 5.9], fov: 38 }} gl={{ alpha: true, antialias: !quality.compact, powerPreference: 'low-power', stencil: false, depth: true }}><Suspense fallback={null}><SceneContents compact={quality.compact} reduceMotion={quality.reduceMotion} /></Suspense></Canvas></div>
+  return <div className={`scene-canvas ${quality.compact ? 'scene-compact' : ''}`}><Canvas dpr={quality.compact ? 1 : [1, 1.35]} frameloop="demand" camera={{ position: [0, 0, 5.9], fov: 38 }} gl={{ alpha: true, antialias: !quality.compact, powerPreference: 'low-power', stencil: false, depth: true }}><Suspense fallback={null}><SceneContents compact={quality.compact} reduceMotion={quality.reduceMotion} onReady={onReady} /></Suspense></Canvas></div>
 }
 

@@ -5,7 +5,7 @@ export const GITHUB_URL = ''
 export const profile = {
   name: 'Prateek Mishra',
   phone: '9472958062',
-  email: 'prateek.mishra25mb@ibsindia.org',
+  email: 'prateekmishra139@gmail.com',
   positioning: 'MBA Student  ·  Marketing  ·  Data Analytics  ·  Business Development',
   objective: 'To build a career in Marketing and Data Analytics by leveraging my skills in digital marketing, consumer insights, business development and data-driven decision-making. Seeking opportunities to contribute to organizational growth through strategic marketing, data analysis, customer understanding and effective business solutions.',
 }

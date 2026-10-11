@@ -1,13 +1,13 @@
 # Prateek Mishra — Portfolio
 
-This repository contains the portfolio website published at the GitHub Pages project URL. The Vite production build uses `/Prateek-Mishra-Portfolio/` as its base path and is deployed from `dist` by `.github/workflows/deploy-pages.yml`.
-
-The root `index.html` also preserves a progressively enhanced static fallback for branch-based Pages publishing. It loads the source React app only when built through Vite; on branch publishing the static document remains available, with an optional deferred Three.js enhancement. The photograph is the supplied portrait in `assets/prateek-mishra.jpeg`.
+The React portfolio is the published website. It uses Vite, React Three Fiber, Three.js and Framer Motion. The supplied portrait is stored at `assets/prateek-mishra.jpeg`.
 
 ## Local development
 
-Install dependencies with pnpm, then run `pnpm dev`. Create a production build with `pnpm build`.
+Install dependencies with pnpm, then run `pnpm dev`. Create the production build with `pnpm build`; `pnpm preview` serves the generated production site.
 
-## Deployment
+## GitHub Pages
 
-GitHub Actions installs the locked dependencies, builds the Vite project, and publishes `dist` to Pages. For a local production preview, run `pnpm preview` after building.
+The project base path is `/Prateek-Mishra-Portfolio/`. The GitHub Actions workflow builds the React app using the clean `app.html` entry template. It publishes the Vite output to the branch root as well as the Actions Pages artifact. Publishing the generated output at the root keeps the site correct if Pages is configured for branch-based publishing; the generated root `index.html` is not the application source.
+
+The portfolio contact email is `prateekmishra139@gmail.com`; it is defined once in `src/data/portfolio.js` and used by the contact and footer links.

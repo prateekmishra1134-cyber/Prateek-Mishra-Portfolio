@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -40,8 +40,23 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      - name: Prepare the React app entry
+        run: cp app.html index.html
       - name: Build site
         run: pnpm build
+      - name: Publish the built React app to the branch root
+        run: |
+          set -euo pipefail
+          touch .nojekyll
+          cp -R dist/. .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html favicon.svg .nojekyll assets
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish built portfolio for GitHub Pages"
+            git push origin HEAD:main
+          fi
+          cmp dist/index.html index.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -49,31 +64,37 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      - name: Verify published portfolio response
+      - name: Verify the published React build and contact link
         env:
           SITE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           set -euo pipefail
-          for attempt in $(seq 1 12); do
-            if curl --fail --silent --show-error "$SITE_URL" -o /tmp/portfolio.html; then
-              break
+          for attempt in $(seq 1 18); do
+            if curl --fail --silent --show-error "${SITE_URL}?verify=${GITHUB_SHA}" -o /tmp/portfolio.html; then
+              if cmp -s dist/index.html /tmp/portfolio.html; then
+                break
+              fi
             fi
-            if [ "$attempt" -eq 12 ]; then
-              echo "The deployed site did not return a successful response."
+            if [ "${attempt}" -eq 18 ]; then
+              echo "The live page did not match the generated React HTML."
               exit 1
             fi
             sleep 10
           done
-          grep -q 'Prateek Mishra' /tmp/portfolio.html
-          grep -q 'id="home"' /tmp/portfolio.html
-          asset_path=$(grep -oE '<img[^>]+src="[^"]*prateek-mishra[^"]*"' /tmp/portfolio.html | head -n 1 | grep -oE 'src="[^"]+"' | cut -d '"' -f 2)
-          if [ -z "$asset_path" ]; then
-            echo "The deployed portfolio does not reference the profile portrait."
+
+          grep -q 'src="/Prateek-Mishra-Portfolio/assets/.*\.js"' /tmp/portfolio.html
+          grep -q 'href="/Prateek-Mishra-Portfolio/assets/.*\.css"' /tmp/portfolio.html
+          js_path=$(grep -oE 'src="/Prateek-Mishra-Portfolio/assets/[^"]+\.js"' /tmp/portfolio.html | head -n 1 | cut -d '"' -f 2)
+          asset_url=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.urljoin(sys.argv[1], sys.argv[2]))' "${SITE_URL}" "${js_path}")
+          curl --fail --silent --show-error "${asset_url}?verify=${GITHUB_SHA}" -o /tmp/portfolio.js
+          grep -Fq 'prateekmishra139@gmail.com' /tmp/portfolio.js
+          grep -Fq 'mailto:' /tmp/portfolio.js
+          grep -Fq 'PRATEEK MISHRA' /tmp/portfolio.js
+          portrait_path=$(grep -oE '/Prateek-Mishra-Portfolio/assets/prateek-mishra-[^"]+\.(jpeg|jpg|webp|png)' /tmp/portfolio.js | head -n 1)
+          if [ -z "${portrait_path}" ]; then
+            echo "The published React bundle does not reference the supplied portrait."
             exit 1
           fi
-          asset_url=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.urljoin(sys.argv[1], sys.argv[2]))' "$SITE_URL" "$asset_path")
-          curl --fail --silent --show-error "$asset_url" -o /dev/null
-          if grep -Eq 'src="/src/main.jsx"|src="/assets/|href="/assets/' /tmp/portfolio.html; then
-            echo "Found a root-based Vite or asset path that is unsafe for this project Pages URL."
-            exit 1
-          fi
+          portrait_url=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.urljoin(sys.argv[1], sys.argv[2]))' "${SITE_URL}" "${portrait_path}")
+          curl --fail --silent --show-error "${portrait_url}?verify=${GITHUB_SHA}" -o /tmp/portrait
+          test -s /tmp/portrait

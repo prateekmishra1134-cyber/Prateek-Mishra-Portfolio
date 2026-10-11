@@ -71,6 +71,7 @@
 
     /* Spatial depth continues through the portfolio, with motion kept restrained. */
     .section{transform-style:preserve-3d}
+    .spatial-section .section-heading{transform:translate3d(0,var(--scroll-depth,0px),0);transition:transform .12s linear;will-change:transform}
     .section-heading,.about-grid,.timeline,.education-grid,.skills-layout,.certs,.achievement-grid,.beyond-grid,.contact-grid{transform-style:preserve-3d}
     .timeline-card,.focus-card,.education-card,.skill-panel,.cert,.achievement,.beyond-panel,.contact-panel{backface-visibility:hidden}
     .timeline-card{box-shadow:0 12px 34px rgba(0,0,0,.12)}

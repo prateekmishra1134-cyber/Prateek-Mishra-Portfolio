@@ -66,6 +66,8 @@ jobs:
           done
           grep -q 'Prateek Mishra' /tmp/portfolio.html
           grep -q 'id="home"' /tmp/portfolio.html
+          grep -q 'assets/prateek-mishra.jpeg' /tmp/portfolio.html
+          curl --fail --silent --show-error "$SITE_URL/assets/prateek-mishra.jpeg" -o /dev/null
           if grep -Eq 'src="/src/main.jsx"|src="/assets/|href="/assets/' /tmp/portfolio.html; then
             echo "Found a root-based Vite or asset path that is unsafe for this project Pages URL."
             exit 1

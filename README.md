@@ -1,12 +1,12 @@
 # Prateek Mishra — Portfolio
 
-A responsive portfolio for Marketing & Data Analytics.
+A responsive portfolio for Marketing & Data Analytics, published at [prateekmishra1134-cyber.github.io/Prateek-Mishra-Portfolio](https://prateekmishra1134-cyber.github.io/Prateek-Mishra-Portfolio/).
 
 ## Published website
 
-The live portfolio is the self-contained root `index.html`. Its layout, styles, scripts, favicon, and CSS-based 3D hero are embedded in that file, so the site works when GitHub Pages publishes the repository root through its legacy/Jekyll source. It does not request Vite development modules or root-relative app assets.
+GitHub Pages branch publishing serves the self-contained root `index.html`. Its styles and interaction scripts are embedded; the primary portrait is stored in `assets/prateek-mishra.jpeg` and referenced with a repository-relative URL. The page also builds as a Vite production site, and the existing GitHub Actions workflow deploys `dist/` when Pages is configured for Actions.
 
-The same `index.html` is included in Vite's production output. The GitHub Actions workflow builds and deploys `dist/`, so either GitHub Pages source mode serves the standalone site. No repository-specific asset prefix is needed by the self-contained page.
+The original React and Three.js implementation remains in `src/` for future development. The published entry point is `index.html` so both current branch publishing and Actions output can serve a complete page.
 
 ## Run and build locally
 
@@ -15,24 +15,8 @@ Requires Node.js 18 or newer.
 ```bash
 npm install
 npm run dev
-```
-
-Create and preview a production build:
-
-```bash
 npm run build
 npm run preview
 ```
 
-The production output is written to `dist/`. The existing React and Three.js implementation remains under `src/` for reference and future development; the deployed standalone page is maintained in the root `index.html`.
-
-## Deploy
-
-The `.github/workflows/deploy-pages.yml` workflow runs on pushes to `main`, builds the project, and deploys `dist/` through GitHub Actions. The Vite base path is configured as `/Prateek-Mishra-Portfolio/`.
-
-The root page also remains compatible with GitHub Pages branch publishing. Keep all styles and scripts self-contained in `index.html`, or verify any new files use repository-relative paths before adding them.
-
-## Update portfolio information
-
-Edit the published content in `index.html`. The original structured portfolio data is preserved in `src/data/portfolio.js`; the React UI and procedural Three.js scene are preserved in `src/App.jsx` and `src/components/Scene.jsx`. If moving the deployed site back to the React implementation, ensure GitHub Pages uses the Actions source so it serves the Vite build from `dist/`.
-
+Vite's production base is configured for `/Prateek-Mishra-Portfolio/`. Keep public image references repository-relative in the root page so they work in both GitHub Pages publishing modes.

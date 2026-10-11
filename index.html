@@ -31,6 +31,43 @@
     @media(max-width:700px){.shell{width:min(100% - 34px,560px)}.nav{height:66px}.menu{display:block}.links{display:none;position:absolute;top:65px;left:0;right:0;padding:15px 18px 19px;background:rgba(7,17,31,.98);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.links.open{display:flex}.links a{padding:11px 8px;font-size:13px}.links .connect-link{text-align:center;margin-top:9px}.hero{min-height:auto}.hero-grid{grid-template-columns:1fr;gap:10px;padding:76px 0 60px}.hero-copy{position:relative;z-index:2}.availability{font-size:8px}.kicker{margin-top:24px}h1{font-size:clamp(58px,16vw,83px)}.summary{font-size:14px;max-width:460px}.meta{margin-top:27px}.visual{min-height:330px;margin-top:-12px}.scroll-cue{bottom:13px}.section{padding:73px 0}.section-heading{display:block;margin-bottom:27px}.intro{margin-top:15px}.about-grid,.contact-grid{grid-template-columns:1fr;gap:19px}.quote p{font-size:18px}.focus-grid{grid-template-columns:1fr 1fr}.focus-card{min-height:150px;padding:15px}.timeline-card{grid-template-columns:1fr;gap:9px;padding:19px}.timeline-card h3{font-size:17px}.education-grid,.certs,.achievement-grid{grid-template-columns:1fr}.skills-layout{grid-template-columns:1fr}.skills-layout .skill-panel:last-child{grid-column:auto}.beyond-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;gap:7px}}
     @media(max-width:390px){.actions{display:grid;grid-template-columns:1fr 1fr}.actions .btn:first-child{grid-column:1/-1}.meta{font-size:7px;gap:8px}.focus-grid{grid-template-columns:1fr}.focus-card{min-height:auto}.visual{min-height:290px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  
+    /* V3 spatial portrait and tactile portfolio interactions */
+    .portrait-stage{--px:0deg;--py:0deg;min-height:530px;perspective:1100px;transform-style:preserve-3d;transition:transform .16s ease-out}
+    .portrait-stage:before,.portrait-stage:after{pointer-events:none}
+    .portrait-frame{position:relative;width:min(62%,300px);height:410px;z-index:2;transform-style:preserve-3d;transform:rotateY(var(--px)) rotateX(var(--py)) translateZ(16px);transition:transform .22s cubic-bezier(.2,.7,.2,1);border-radius:23px;padding:9px;background:linear-gradient(145deg,rgba(222,235,255,.54),rgba(99,133,238,.2) 24%,rgba(169,138,255,.34) 52%,rgba(84,221,239,.36));box-shadow:0 38px 90px rgba(0,0,0,.48),0 0 55px rgba(105,133,255,.22),inset 0 1px 1px rgba(255,255,255,.72)}
+    .portrait-frame:before{content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.52);border-radius:20px;transform:translateZ(7px);pointer-events:none}
+    .portrait-image-wrap{position:absolute;inset:9px;border-radius:16px;overflow:hidden;background:#b6aa8b;transform:translateZ(5px)}
+    .portrait-image-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 24%;display:block;filter:saturate(.93) contrast(1.02)}
+    .frame-glass{position:absolute;inset:0;border-radius:23px;background:linear-gradient(135deg,rgba(255,255,255,.25),transparent 23%,transparent 62%,rgba(100,220,255,.13));z-index:3;pointer-events:none;transform:translateZ(14px)}
+    .frame-reflection{position:absolute;z-index:4;inset:9px;border-radius:16px;pointer-events:none;background:linear-gradient(115deg,transparent 0 24%,rgba(255,255,255,.14) 27%,transparent 34% 68%,rgba(118,229,255,.09) 71%,transparent 76%);mix-blend-mode:screen;transform:translateZ(16px)}
+    .frame-edge{position:absolute;inset:-9px;border:1px solid rgba(169,193,255,.35);border-radius:28px;transform:translateZ(-9px);box-shadow:0 0 32px rgba(113,146,255,.16)}
+    .portrait-orbit{width:min(100%,480px);pointer-events:none}
+    .portrait-orbit.orbit{border-color:rgba(106,167,255,.33)}
+    .portrait-orbit.orbit.two{border-color:rgba(114,231,239,.3)}
+    .portrait-orbit.orbit.three{border-color:rgba(184,143,255,.34)}
+    .portrait-orbit-label{position:absolute;z-index:5;padding:8px 11px;border:1px solid rgba(193,211,255,.24);border-radius:8px;background:rgba(8,17,34,.76);backdrop-filter:blur(10px);font:9px var(--mono);letter-spacing:.11em;color:#e0e8ff;box-shadow:0 10px 35px rgba(0,0,0,.2);transform:translateZ(65px)}
+    .portrait-label-a{left:2%;top:19%}.portrait-label-b{right:-2%;top:42%}.portrait-label-c{left:6%;bottom:18%}
+    .floating-panel{position:absolute;z-index:6;display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid rgba(195,215,255,.2);border-radius:11px;background:linear-gradient(130deg,rgba(26,43,74,.78),rgba(10,21,40,.77));backdrop-filter:blur(14px);box-shadow:0 17px 45px rgba(0,0,0,.28);font:8px/1.5 var(--mono);letter-spacing:.12em;color:#aebdd4;transform:translateZ(82px)}
+    .floating-panel b{color:#dce7ff;font-weight:500}.panel-top{right:4%;top:13%}.panel-bottom{left:1%;bottom:12%}
+    .panel-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}.panel-number{font-size:16px;color:var(--violet)}
+    .spark{position:absolute;z-index:4;width:5px;height:5px;background:#b8d6ff;border-radius:50%;box-shadow:0 0 15px 3px rgba(119,210,255,.72);animation:sparkle 4s ease-in-out infinite}
+    .spark-one{top:25%;right:18%}.spark-two{bottom:25%;right:11%;animation-delay:-1.2s}.spark-three{top:20%;left:20%;animation-delay:-2.3s}
+    @keyframes sparkle{0%,100%{opacity:.4;transform:scale(.7)}50%{opacity:1;transform:scale(1.35)}}
+    .card,.timeline-card,.focus-card,.cert,.achievement,.education-card,.skill-panel,.beyond-panel,.contact-panel{transform-style:preserve-3d;transition:transform .32s cubic-bezier(.2,.7,.2,1),border-color .32s,box-shadow .32s}
+    .spatial-card:hover,.spatial-card:focus-visible{transform:perspective(900px) rotateX(var(--card-rx,0deg)) rotateY(var(--card-ry,0deg)) translate3d(0,-5px,18px)!important;border-color:rgba(126,188,255,.48)!important;box-shadow:0 20px 50px rgba(0,0,0,.22),0 0 26px rgba(92,136,255,.08)}
+    .timeline-card:after,.education-card:after,.achievement:after,.cert:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.035),transparent 45%);transform:translateZ(2px)}
+    .timeline{position:relative;padding-left:12px}.timeline:before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(transparent,var(--cyan),var(--violet),transparent);box-shadow:0 0 14px rgba(120,231,240,.4)}
+    .skills-layout .chip,.skill-panel .chip{transition:transform .25s,border-color .25s,background .25s}.chip:hover{transform:translateY(-3px) translateZ(10px);border-color:rgba(120,231,240,.38);background:rgba(120,231,240,.1)}
+    .section{perspective:1200px}.section-heading h2,.eyebrow{transform:translateZ(8px)}
+    .achievement{position:relative;overflow:hidden}.achievement:hover strong{transform:translateZ(18px);text-shadow:0 0 18px rgba(120,231,240,.45)}
+    .interest{transition:transform .28s}.interest:hover{transform:translateX(5px) translateZ(14px)}
+    .contact-panel{box-shadow:0 24px 60px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.04)}
+    @media(max-width:900px){.portrait-stage{min-height:440px}.portrait-frame{height:360px;width:min(62%,270px)}}
+    @media(max-width:700px){.portrait-stage{min-height:370px;margin-top:-20px}.portrait-frame{height:305px;width:min(62%,230px);padding:7px}.portrait-image-wrap{inset:7px}.portrait-label-a{left:0;top:17%}.portrait-label-b{right:-1%;top:43%}.portrait-label-c{left:2%;bottom:16%}.floating-panel{padding:9px 10px;font-size:7px}.panel-top{right:0;top:9%}.panel-bottom{left:0;bottom:8%}}
+    @media(max-width:390px){.portrait-stage{min-height:320px}.portrait-frame{height:275px;width:min(65%,210px)}}
+    @media(prefers-reduced-motion:reduce){.portrait-stage,.portrait-frame,.spatial-card,.spark{animation:none!important;transition:none!important;transform:none!important}.spark{display:none}}
+
   </style>
 </head>
 <body>
@@ -52,10 +89,16 @@
           <div class="actions"><a class="btn primary" href="#experience">Explore my work <span aria-hidden="true">↘</span></a><a class="btn secondary" href="#contact">Let’s connect <span aria-hidden="true">↗</span></a></div>
           <div class="meta"><span><b>01</b> / 08</span><i></i><span>BUSINESS DEVELOPMENT</span><i></i><span>DIGITAL MARKETING</span></div>
         </div>
-        <div class="visual" role="img" aria-label="Abstract three-dimensional network representing insight, connection and growth">
-          <div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
-          <div class="core"><span class="node n1"></span><span class="node n2"></span><span class="node n3"></span></div>
-          <span class="visual-label label-a">01 · INSIGHT</span><span class="visual-label label-b">02 · CONNECTION</span><span class="visual-label label-c">03 · GROWTH</span>
+        <div class="visual portrait-stage" aria-label="Prateek Mishra portrait in a layered 3D glass frame">
+          <div class="portrait-orbit orbit"></div><div class="portrait-orbit orbit two"></div><div class="portrait-orbit orbit three"></div>
+          <div class="portrait-frame" id="portraitFrame">
+            <div class="frame-glass"></div><div class="portrait-image-wrap"><img src="assets/prateek-mishra.jpeg" alt="Prateek Mishra wearing a navy blazer and white shirt" fetchpriority="high"></div>
+            <div class="frame-reflection"></div><div class="frame-edge"></div>
+          </div>
+          <div class="portrait-orbit-label portrait-label-a">01 · PEOPLE</div><div class="portrait-orbit-label portrait-label-b">02 · INSIGHT</div><div class="portrait-orbit-label portrait-label-c">03 · GROWTH</div>
+          <div class="floating-panel panel-top"><span class="panel-dot"></span><span>MARKETING<br><b>× DATA</b></span></div>
+          <div class="floating-panel panel-bottom"><span class="panel-number">01</span><span>HUMAN<br><b>CONNECTION</b></span></div>
+          <div class="spark spark-one"></div><div class="spark spark-two"></div><div class="spark spark-three"></div>
           <span class="caption">ANALYTICAL THINKING · HUMAN CONNECTION</span>
         </div>
       </div>
@@ -174,5 +217,32 @@
       }
     }());
   </script>
+
+  <script>
+  (function(){
+    var frame=document.getElementById('portraitFrame');
+    var stage=document.querySelector('.portrait-stage');
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var coarse=window.matchMedia('(pointer: coarse)').matches;
+    if(frame&&stage&&!reduce&&!coarse){
+      stage.addEventListener('pointermove',function(e){
+        var r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        frame.style.setProperty('--px',(x*11)+'deg');frame.style.setProperty('--py',(-y*9)+'deg');
+      },{passive:true});
+      stage.addEventListener('pointerleave',function(){frame.style.setProperty('--px','0deg');frame.style.setProperty('--py','0deg')});
+    }
+    if(!reduce&&!coarse){
+      document.querySelectorAll('.card,.timeline-card,.focus-card,.cert,.achievement,.education-card,.skill-panel,.beyond-panel,.contact-panel').forEach(function(card){
+        card.classList.add('spatial-card');
+        card.addEventListener('pointermove',function(e){
+          var r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+          card.style.setProperty('--card-rx',(-y*3.2)+'deg');card.style.setProperty('--card-ry',(x*3.2)+'deg');
+        },{passive:true});
+        card.addEventListener('pointerleave',function(){card.style.removeProperty('--card-rx');card.style.removeProperty('--card-ry')});
+      });
+    }
+  }());
+  </script>
+
 </body>
 </html>

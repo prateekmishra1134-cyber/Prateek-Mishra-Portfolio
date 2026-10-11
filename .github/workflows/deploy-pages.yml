@@ -66,8 +66,13 @@ jobs:
           done
           grep -q 'Prateek Mishra' /tmp/portfolio.html
           grep -q 'id="home"' /tmp/portfolio.html
-          grep -q 'assets/prateek-mishra.jpeg' /tmp/portfolio.html
-          curl --fail --silent --show-error "$SITE_URL/assets/prateek-mishra.jpeg" -o /dev/null
+          asset_path=$(grep -oE '<img[^>]+src="[^"]*prateek-mishra[^"]*"' /tmp/portfolio.html | head -n 1 | grep -oE 'src="[^"]+"' | cut -d '"' -f 2)
+          if [ -z "$asset_path" ]; then
+            echo "The deployed portfolio does not reference the profile portrait."
+            exit 1
+          fi
+          asset_url=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.urljoin(sys.argv[1], sys.argv[2]))' "$SITE_URL" "$asset_path")
+          curl --fail --silent --show-error "$asset_url" -o /dev/null
           if grep -Eq 'src="/src/main.jsx"|src="/assets/|href="/assets/' /tmp/portfolio.html; then
             echo "Found a root-based Vite or asset path that is unsafe for this project Pages URL."
             exit 1

@@ -69,6 +69,7 @@ function Hero() {
   const reduce = useReducedMotion()
   const [sceneReady, setSceneReady] = useState(false)
   const [webglReady, setWebglReady] = useState(false)
+  const [skipIntro, setSkipIntro] = useState(false)
   useEffect(() => {
     if (reduce) return undefined
     let idleHandle
@@ -95,8 +96,8 @@ function Hero() {
     </div>
     <div className="hero-visual" aria-label="Interactive portrait scene with a camera orbit and connected 3D forms"><div className="hero-visual-orbit hero-visual-orbit-a"/><div className="hero-visual-orbit hero-visual-orbit-b"/><div className="visual-crosshair visual-crosshair-a"/><div className="visual-crosshair visual-crosshair-b"/>
       <div className={`portrait-fallback ${webglReady ? "portrait-fallback-hidden" : ""}`}><img src={portraitUrl} alt="Prateek Mishra wearing a dark suit and white shirt" /><span>PRATEEK MISHRA · MARKETING × DATA</span></div>
-      {sceneReady ? <SceneBoundary><Suspense fallback={<div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}><Scene onReady={() => setWebglReady(true)} /></Suspense></SceneBoundary> : <div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}
-      <button className="intro-skip" type="button" onClick={() => window.dispatchEvent(new Event("portfolio:skip-intro"))}>Skip camera intro <ArrowUpRight size={12} /></button>
+      {sceneReady ? <SceneBoundary><Suspense fallback={<div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}><Scene onReady={() => setWebglReady(true)} skipIntro={skipIntro} /></Suspense></SceneBoundary> : <div className="scene-fallback"><div className="fallback-orbit"/><span>INSIGHT · STRATEGY · GROWTH</span></div>}
+      <button className="intro-skip" type="button" onClick={() => { setSkipIntro(true); window.dispatchEvent(new Event("portfolio:skip-intro")) }}>Skip camera intro <ArrowUpRight size={12} /></button>
       <div className="visual-tag visual-tag-top"><span className="tag-dot tag-dot-blue"/> INSIGHT</div><div className="visual-tag visual-tag-right"><span className="tag-dot tag-dot-violet"/> CONNECTION</div><div className="visual-tag visual-tag-bottom"><span className="tag-dot tag-dot-cyan"/> GROWTH</div>
       <div className="visual-caption"><span>ANALYTICAL THINKING</span><i>·</i><span>HUMAN CONNECTION</span></div>
     </div></div>

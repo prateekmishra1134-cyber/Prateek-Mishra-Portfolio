@@ -15,12 +15,12 @@ function CinematicCamera({ reduceMotion }) {
   }, [])
   useFrame(({ camera, clock, pointer }) => {
     const elapsed = clock.elapsedTime
-    const progress = reduceMotion || finished.current ? 1 : Math.min(1, Math.max(0, (elapsed - .25) / 1.65))
+    const progress = reduceMotion || finished.current ? 1 : Math.min(1, Math.max(0, (elapsed - .25) / 2.15))
     const eased = progress * progress * (3 - 2 * progress)
-    const angle = (1 - eased) * .34
-    const targetX = Math.sin(angle) * 2.15 + pointer.x * .15
-    const targetY = pointer.y * -.1
-    const targetZ = 5.9 + Math.sin(progress * Math.PI) * .24
+    const angle = (1 - eased) * .92
+    const targetX = Math.sin(angle) * 3.2 + pointer.x * .15
+    const targetY = (1 - eased) * .18 + pointer.y * -.1
+    const targetZ = 5.9 + Math.sin(progress * Math.PI) * .42 + (1 - progress) * .18
     camera.position.x += (targetX - camera.position.x) * .045
     camera.position.y += (targetY - camera.position.y) * .045
     camera.position.z += (targetZ - camera.position.z) * .045

@@ -125,12 +125,12 @@ function InterestObjects() {
 function SectionWorld({ selected }) {
   const experiencePanels = useMemo(() => Array.from({ length: 5 }, (_, index) => index), [])
   return <>
-    <group position={[0, 0, -ZONE_STEP]}>
+    <group position={[0, 0, -ZONE_STEP * 2]}>
       <mesh position={[-2.7, .1, 0]}><icosahedronGeometry args={[.78, 1]} /><meshPhysicalMaterial color="#647ee0" wireframe transparent opacity={.42} /></mesh>
       <SkillNodes />
       <Rail points={[[-3,-1,0],[-1.8,.9,.3],[0,-.45,-.2],[1.7,.8,.1],[3,-.7,0]]} color="#8b7dff" />
     </group>
-    <group position={[0, 0, -ZONE_STEP * 2]}>
+    <group position={[0, 0, -ZONE_STEP}]>
       <Rail points={[[0,1.6,0],[0,.8,0],[0,0,0],[0,-.8,0],[0,-1.6,0]]} color="#79e3ee" opacity={.36} />
       {experiencePanels.map((index) => <FocusableExperience key={index} index={index} selected={selected} />)}
     </group>
@@ -189,7 +189,7 @@ export default function Journey() {
     const onFocus=(event)=>setSelected(event.detail||null)
     window.addEventListener('portfolio:focus',onFocus)
     return()=>window.removeEventListener('portfolio:focus',onFocus)
-  },[invalidate])
+  },[])
   if(typeof window!=='undefined'&&!window.WebGLRenderingContext)return null
   return <div className="journey-world" aria-hidden="true">
     <Canvas dpr={compact?1:[1,1.3]} camera={{position:[0,0,8],fov:38,near:.1,far:100}} frameloop="demand" gl={{alpha:true,antialias:!compact,powerPreference:'low-power',stencil:false,depth:true}}>

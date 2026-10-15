@@ -5,9 +5,10 @@ import portraitUrl from '../../assets/prateek-mishra.jpeg'
 
 const hubPoints = [[-1.55, .7, -.2], [-1.1, -.92, .32], [-.08, 1.55, -.1], [.96, 1.08, .35], [1.62, .1, -.3], [1.08, -.98, .15], [.05, -1.55, -.18], [-1.38, -.12, .16]]
 
-function CinematicCamera({ reduceMotion }) {
-  const finished = useRef(false)
+function CinematicCamera({ reduceMotion, skipIntro }) {
+  const finished = useRef(skipIntro)
   const { invalidate } = useThree()
+  useEffect(() => { if (skipIntro) finished.current = true }, [skipIntro])
   useEffect(() => {
     const skip = () => { finished.current = true }
     window.addEventListener('portfolio:skip-intro', skip)
@@ -90,7 +91,7 @@ function ParticleField({ compact }) {
   return <points ref={field}><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry><pointsMaterial color="#91aaff" size={compact ? .024 : .029} sizeAttenuation transparent opacity={.55} depthWrite={false} /></points>
 }
 
-function SceneContents({ compact, reduceMotion, onReady }) {
+function SceneContents({ compact, reduceMotion, onReady, skipIntro }) {
   return <>
     <ambientLight intensity={1.15} />
     <pointLight position={[3.5, 3, 4]} intensity={compact ? 10 : 17} color="#728eff" distance={9} />
@@ -98,7 +99,7 @@ function SceneContents({ compact, reduceMotion, onReady }) {
     <pointLight position={[0, 2, -2]} intensity={7} color="#b66cff" distance={7} />
     <ParticleField compact={compact} />
     <NetworkLines compact={compact} />
-    <CinematicCamera reduceMotion={reduceMotion} />
+    <CinematicCamera reduceMotion={reduceMotion} skipIntro={skipIntro} />
     <PortraitFrame compact={compact} onReady={onReady} />
   </>
 }
@@ -110,7 +111,7 @@ export function hasWebGL() {
   } catch { return false }
 }
 
-export default function Scene({ compact = false, onReady }) {
+export default function Scene({ compact = false, onReady, skipIntro = false }) {
   const [quality, setQuality] = useState({ compact, reduceMotion: false, enabled: true })
   useEffect(() => {
     const small = window.matchMedia('(max-width: 760px)')
@@ -123,6 +124,6 @@ export default function Scene({ compact = false, onReady }) {
     return () => { small.removeEventListener?.('change', update); reduced.removeEventListener?.('change', update) }
   }, [compact])
   if (!quality.enabled) return <div className="scene-fallback" aria-hidden="true"><div className="fallback-orbit" /><span>INSIGHT · STRATEGY · GROWTH</span></div>
-  return <div className={`scene-canvas ${quality.compact ? 'scene-compact' : ''}`}><Canvas dpr={quality.compact ? 1 : [1, 1.35]} frameloop="demand" camera={{ position: [0, 0, 5.9], fov: 38 }} gl={{ alpha: true, antialias: !quality.compact, powerPreference: 'low-power', stencil: false, depth: true }}><Suspense fallback={null}><SceneContents compact={quality.compact} reduceMotion={quality.reduceMotion} onReady={onReady} /></Suspense></Canvas></div>
+  return <div className={`scene-canvas ${quality.compact ? 'scene-compact' : ''}`}><Canvas dpr={quality.compact ? 1 : [1, 1.35]} frameloop="demand" camera={{ position: [0, 0, 5.9], fov: 38 }} gl={{ alpha: true, antialias: !quality.compact, powerPreference: 'low-power', stencil: false, depth: true }}><Suspense fallback={null}><SceneContents compact={quality.compact} reduceMotion={quality.reduceMotion} onReady={onReady} skipIntro={skipIntro} /></Suspense></Canvas></div>
 }
 
